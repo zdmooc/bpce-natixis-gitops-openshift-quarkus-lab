@@ -25,7 +25,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: REPO_URL
+        repoURL: https://github.com/zdmooc/bpce-natixis-gitops-openshift-quarkus-lab.git
         targetRevision: main
         path: "{{path}}"
       destination:
