@@ -1,0 +1,6 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: bpce-amq-streams-og
+  namespace: openshift-operators
+spec: {}

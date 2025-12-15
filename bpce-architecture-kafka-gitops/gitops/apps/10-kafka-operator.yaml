@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bpce-kafka-operator
+  namespace: openshift-gitops
+spec:
+  project: bpce
+  source:
+    repoURL: https://github.com/zdmooc/bpce-natixis-gitops-openshift-quarkus-lab.git
+    targetRevision: main
+    path: architecture/kafka/operator/amq-streams
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openshift-operators
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

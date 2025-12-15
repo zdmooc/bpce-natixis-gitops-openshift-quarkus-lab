@@ -1,0 +1,10 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: bpce-events
+  labels:
+    strimzi.io/cluster: bpce-kafka
+spec:
+  topicName: bpce.events
+  partitions: 1
+  replicas: 1

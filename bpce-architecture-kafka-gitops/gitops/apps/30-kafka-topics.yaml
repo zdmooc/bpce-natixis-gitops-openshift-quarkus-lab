@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bpce-kafka-topics
+  namespace: openshift-gitops
+spec:
+  project: bpce
+  source:
+    repoURL: https://github.com/zdmooc/bpce-natixis-gitops-openshift-quarkus-lab.git
+    targetRevision: main
+    path: architecture/kafka/topics
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: bpce-platform
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

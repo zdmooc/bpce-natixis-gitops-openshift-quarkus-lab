@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: bpce
+  namespace: openshift-gitops
+spec:
+  description: BPCE platform (Kafka) + apps (Quarkus) - GitOps
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: bpce-dev
+    server: https://kubernetes.default.svc
+  - namespace: bpce-platform
+    server: https://kubernetes.default.svc
+  - namespace: openshift-operators
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'

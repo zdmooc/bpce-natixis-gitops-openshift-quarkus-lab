@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bpce-root
+  namespace: openshift-gitops
+spec:
+  project: bpce
+  source:
+    repoURL: https://github.com/zdmooc/bpce-natixis-gitops-openshift-quarkus-lab.git
+    targetRevision: main
+    path: architecture/gitops/apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openshift-gitops
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
