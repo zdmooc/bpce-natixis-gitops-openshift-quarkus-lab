@@ -31,10 +31,10 @@ spec:
         resources:
           requests:
             cpu: "100m"
-            memory: "256Mi"
+            memory: "16Mi"
           limits:
             cpu: "500m"
-            memory: "512Mi"
+            memory: "256Mi"
         readinessProbe:
           httpGet:
             path: /q/health/ready
