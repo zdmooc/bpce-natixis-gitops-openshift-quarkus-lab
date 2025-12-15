@@ -7,4 +7,4 @@ spec:
     spec:
       containers:
       - name: backend
-        image: quay.io/CHANGE_ME/container-tools-api:preprod
+        image: default-route-openshift-image-registry.apps-crc.testing/bpce-preprod/container-tools-api:preprod

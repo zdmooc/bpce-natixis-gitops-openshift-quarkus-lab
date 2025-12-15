@@ -7,4 +7,4 @@ spec:
     spec:
       containers:
       - name: backend
-        image: quay.io/CHANGE_ME/container-tools-api:dev
+        image: default-route-openshift-image-registry.apps-crc.testing/bpce-dev/container-tools-api:dev
