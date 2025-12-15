@@ -1,0 +1,17 @@
+{{- if .Values.route.enabled -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "backend.fullname" . }}
+spec:
+  {{- if .Values.route.host }}
+  host: {{ .Values.route.host | quote }}
+  {{- end }}
+  to:
+    kind: Service
+    name: {{ include "backend.fullname" . }}
+  port:
+    targetPort: http
+  tls:
+    termination: {{ .Values.route.termination }}
+{{- end -}}

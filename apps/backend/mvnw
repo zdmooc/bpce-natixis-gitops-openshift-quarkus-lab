@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Minimal Maven wrapper helper (uses local mvn if wrapper jar not present).
+# For a full wrapper, run: mvn -N io.takari:maven:wrapper
+exec mvn "$@"

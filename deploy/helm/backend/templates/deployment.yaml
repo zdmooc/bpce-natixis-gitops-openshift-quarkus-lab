@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "backend.fullname" . }}
+  labels:
+    app: {{ include "backend.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "backend.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "backend.fullname" . }}
+    spec:
+      serviceAccountName: {{ include "backend.fullname" . }}-sa
+      containers:
+      - name: backend
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.targetPort }}
+        env:
+        - name: ENV
+          value: {{ .Values.env.ENV | quote }}
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: {{ .Values.env.OTEL_EXPORTER_OTLP_ENDPOINT | quote }}
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: {{ .Values.env.KAFKA_BOOTSTRAP_SERVERS | quote }}
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu | quote }}
+            memory: {{ .Values.resources.requests.memory | quote }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu | quote }}
+            memory: {{ .Values.resources.limits.memory | quote }}
+        readinessProbe:
+          httpGet:
+            path: /q/health/ready
+            port: {{ .Values.service.targetPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /q/health/live
+            port: {{ .Values.service.targetPort }}
+          initialDelaySeconds: 10
+          periodSeconds: 10

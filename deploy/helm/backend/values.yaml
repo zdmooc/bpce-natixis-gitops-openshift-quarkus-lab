@@ -1,0 +1,31 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: quay.io/CHANGE_ME/container-tools-api
+  tag: dev
+  pullPolicy: IfNotPresent
+
+service:
+  port: 80
+  targetPort: 8080
+
+route:
+  enabled: true
+  host: ""
+  termination: edge
+
+replicaCount: 1
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+env:
+  ENV: dev
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+  KAFKA_BOOTSTRAP_SERVERS: kafka:9092

@@ -1,0 +1,11 @@
+replicaCount: 3
+env:
+  ENV: prod
+route:
+  host: backend-prod.apps-crc.testing
+resources:
+  limits:
+    cpu: "1000m"
+    memory: "1024Mi"
+image:
+  tag: prod

@@ -1,0 +1,8 @@
+# Optionnel : installation Argo CD vanilla (hors OpenShift GitOps Operator).
+# Sur OpenShift, privilégier l'Operator "OpenShift GitOps".
+#
+# Exemple minimal : à compléter selon ton environnement.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd

@@ -1,0 +1,26 @@
+pipeline {
+  agent any
+  stages {
+    stage('Test') {
+      steps {
+        dir('apps/backend') {
+          sh 'mvn -q test'
+        }
+      }
+    }
+    stage('Package') {
+      steps {
+        dir('apps/backend') {
+          sh 'mvn -q package -DskipTests'
+        }
+      }
+    }
+    // stage('Build & Push Image') { ... } // à compléter selon registry
+  }
+  post {
+    always {
+      junit 'apps/backend/target/surefire-reports/*.xml'
+      archiveArtifacts artifacts: 'apps/backend/target/**', fingerprint: true, allowEmptyArchive: true
+    }
+  }
+}

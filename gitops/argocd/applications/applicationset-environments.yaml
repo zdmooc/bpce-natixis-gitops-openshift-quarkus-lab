@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bpce-backend-environments
+  namespace: openshift-gitops
+spec:
+  generators:
+  - list:
+      elements:
+      - env: dev
+        namespace: bpce-dev
+        path: deploy/kustomize/overlays/dev
+      - env: build
+        namespace: bpce-build
+        path: deploy/kustomize/overlays/build
+      - env: preprod
+        namespace: bpce-preprod
+        path: deploy/kustomize/overlays/preprod
+      - env: prod
+        namespace: bpce-prod
+        path: deploy/kustomize/overlays/prod
+  template:
+    metadata:
+      name: "bpce-backend-{{env}}"
+    spec:
+      project: default
+      source:
+        repoURL: REPO_URL
+        targetRevision: main
+        path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true

@@ -1,0 +1,25 @@
+stages: [test, build]
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+test:
+  image: maven:3.9-eclipse-temurin-17
+  stage: test
+  script:
+    - cd apps/backend
+    - mvn -q test
+  artifacts:
+    when: always
+    paths:
+      - apps/backend/target/surefire-reports
+
+build:
+  image: maven:3.9-eclipse-temurin-17
+  stage: build
+  script:
+    - cd apps/backend
+    - mvn -q package -DskipTests
+  artifacts:
+    paths:
+      - apps/backend/target

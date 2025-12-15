@@ -1,0 +1,7 @@
+replicaCount: 1
+env:
+  ENV: dev
+route:
+  host: backend-dev.apps-crc.testing
+image:
+  tag: dev

@@ -1,0 +1,7 @@
+namespace: bpce-build
+resources:
+- ../../base
+patches:
+- path: patch-deploy.yaml
+- path: patch-image.yaml
+- path: patch-route-host.yaml

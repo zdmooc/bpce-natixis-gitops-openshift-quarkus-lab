@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: backend
+        env:
+        - name: ENV
+          value: "preprod"
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"

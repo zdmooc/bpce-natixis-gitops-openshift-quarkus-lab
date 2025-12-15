@@ -1,0 +1,6 @@
+FROM eclipse-temurin:17-jre
+WORKDIR /work/
+COPY target/quarkus-app/ /work/
+EXPOSE 8080
+ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0"
+CMD ["java","-jar","quarkus-run.jar"]

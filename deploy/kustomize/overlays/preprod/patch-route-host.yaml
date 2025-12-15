@@ -1,0 +1,6 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: backend
+spec:
+  host: backend-preprod.apps-crc.testing
