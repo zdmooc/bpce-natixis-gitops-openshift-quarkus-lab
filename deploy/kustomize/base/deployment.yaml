@@ -30,10 +30,10 @@ spec:
           value: "kafka:9092"
         resources:
           requests:
-            cpu: "100m"
+            cpu: "10m"
             memory: "16Mi"
           limits:
-            cpu: "500m"
+            cpu: "200m"
             memory: "256Mi"
         readinessProbe:
           httpGet:
