@@ -1,0 +1,10 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: bpce-app
+  namespace: bpce-platform
+  labels:
+    strimzi.io/cluster: bpce-kafka
+spec:
+  authentication:
+    type: scram-sha-512

@@ -1,0 +1,13 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: bpce-events
+  namespace: bpce-platform
+  labels:
+    strimzi.io/cluster: bpce-kafka
+spec:
+  topicName: bpce-events
+  partitions: 3
+  replicas: 1
+  config:
+    retention.ms: 3600000
