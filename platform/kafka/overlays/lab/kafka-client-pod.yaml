@@ -1,22 +1,28 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: kafka-client
   namespace: bpce-platform
 spec:
-  restartPolicy: Always
-  securityContext:
-    runAsNonRoot: true
-    runAsUser: 1001
-    seccompProfile:
-      type: RuntimeDefault
-  containers:
-  - name: kafka-client
-    # Image identique à celle du broker (digest déjà pullé sur CRC).
-    # Si tu veux figer au digest exact, remplace par celui observé sur le broker.
-    image: registry.redhat.io/amq-streams/kafka-40-rhel9
-    command: ["bash","-lc","sleep infinity"]
-    securityContext:
-      allowPrivilegeEscalation: false
-      capabilities:
-        drop: ["ALL"]
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-client
+  template:
+    metadata:
+      labels:
+        app: kafka-client
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: kafka-client
+        image: registry.redhat.io/amq-streams/kafka-40-rhel9@sha256:352ab87382fc1d1d3b68833a16770c75e081a0dd07788a8ba0ab9792837c628e
+        command: ["bash","-lc","sleep infinity"]
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
