@@ -1,0 +1,17 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: bpce-events-demo
+  namespace: bpce-platform
+spec:
+  source:
+    type: Binary
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: src/main/docker/Dockerfile.jvm
+  output:
+    to:
+      kind: ImageStreamTag
+      name: bpce-events-demo:latest
+  triggers: []

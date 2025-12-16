@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bpce-events-demo
+  namespace: bpce-platform
+  annotations:
+    image.openshift.io/triggers: |
+      [{"from":{"kind":"ImageStreamTag","name":"bpce-events-demo:latest"},"fieldPath":"spec.template.spec.containers[0].image"}]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bpce-events-demo
+  template:
+    metadata:
+      labels:
+        app: bpce-events-demo
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: app
+        image: bpce-events-demo:latest
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: bpce-kafka-kafka-bootstrap:9093
+        - name: KAFKA_USERNAME
+          value: bpce-app
+        - name: KAFKA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: bpce-app
+              key: password
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+        readinessProbe:
+          httpGet:
+            path: /q/health/ready
+            port: 8080
+        livenessProbe:
+          httpGet:
+            path: /q/health/live
+            port: 8080

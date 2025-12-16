@@ -1,0 +1,11 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: bpce-events-demo
+  namespace: bpce-platform
+spec:
+  to:
+    kind: Service
+    name: bpce-events-demo
+  port:
+    targetPort: http
