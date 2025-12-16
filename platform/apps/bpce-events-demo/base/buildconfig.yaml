@@ -14,4 +14,3 @@ spec:
     to:
       kind: ImageStreamTag
       name: bpce-events-demo:latest
-  triggers: []
