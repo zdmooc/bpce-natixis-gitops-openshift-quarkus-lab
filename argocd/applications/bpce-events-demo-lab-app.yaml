@@ -12,6 +12,12 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: bpce-platform
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    name: bpce-events-demo
+    jsonPointers:
+    - /spec/template/spec/containers/0/image
   syncPolicy:
     automated:
       prune: true
