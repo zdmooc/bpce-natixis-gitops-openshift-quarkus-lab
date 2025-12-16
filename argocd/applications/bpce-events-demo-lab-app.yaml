@@ -18,6 +18,12 @@ spec:
     name: bpce-events-demo
     jsonPointers:
     - /spec/template/spec/containers/0/image
+  - group: build.openshift.io
+    kind: BuildConfig
+    name: bpce-events-demo
+    jsonPointers:
+    - /status
+    - /metadata/labels/app.kubernetes.io~1instance
   syncPolicy:
     automated:
       prune: true
