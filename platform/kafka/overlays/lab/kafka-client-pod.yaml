@@ -14,9 +14,7 @@ spec:
         app: kafka-client
     spec:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1001
-        seccompProfile:
+        runAsNonRoot: trueseccompProfile:
           type: RuntimeDefault
       containers:
       - name: kafka-client
