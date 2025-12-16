@@ -1,0 +1,6 @@
+FROM registry.access.redhat.com/ubi9/openjdk-17-runtime:latest
+WORKDIR /work/
+COPY target/quarkus-app/ /work/
+EXPOSE 8080
+USER 1001
+CMD ["java","-jar","quarkus-run.jar"]
